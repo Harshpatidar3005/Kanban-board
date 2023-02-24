@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Tasks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f7f7f7;
+      flex-direction: column;
+    }
+
+    .column {
+      width: 300px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      margin: 20px;
+    }
+
+    .column h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    .task {
+      background-color: #f7f7f7;
+      border: 1px solid #e3e3e3;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+      cursor: move;
+      text-align: center;
+    }
+
+    .task:hover {
+            background-color: #868686;
+    }
+  </style>
+</head>
+<body>
+    
+  <div class="container"><h1>Kanban board with drag-and-drop functionality</h1>
+    <div class="column" id="column1" ondrop="drop(event, 'column1')" ondragover="allowDrop(event)">
+      <h2>Column 1</h2>
+      <div class="task" id="task1" draggable="true" ondragstart="drag(event)">Task 1</div>
+      <div class="task" id="task2" draggable="true" ondragstart="drag(event)">Task 2</div>
+      <div class="task" id="task3" draggable="true" ondragstart="drag(event)">Task 3</div>
+      <div class="task" id="task4" draggable="true" ondragstart="drag(event)">Task 4</div>
+    </div>
+    <div class="column" id="column2" ondrop="drop(event, 'column2')" ondragover="allowDrop(event)">
+      <h2>Column 2</h2>
+      <div class="task" id="task5" draggable="true" ondragstart="drag(event)">Task 5</div>
+      <div class="task" id="task6" draggable="true" ondragstart="drag(event)">Task 6</div>
+      <div class="task" id="task7" draggable="true" ondragstart="drag(event)">Task 7</div>
+      <div class="task" id="task8" draggable="true" ondragstart="drag(event)">Task 8</div>
+    </div>
+  </div>
+
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event, columnId) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      var destinationColumn = document.getElementById(columnId);
+      destinationColumn.appendChild(document.getElementById(data));
+    }
+  </script>
+</body>
+</html>
